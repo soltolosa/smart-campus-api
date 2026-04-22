@@ -20,11 +20,13 @@ public class DiscoveryResource {
         //API information
         response.put("apiName", "Smart Campus API");
         response.put("version", "v1");
-        response.put("contact", "your.email@westminster.ac.uk");
+        response.put("contact", "w2081584@westminster.ac.uk");
+        response.put("description", "A RESTful API for managing smart campus resources.");
         //Resources in the API
         Map<String, String> resources = new HashMap<>();
         resources.put("rooms", "/api/v1/rooms");
         resources.put("sensors", "/api/v1/sensors");
+        resources.put("sensorReadings", "/api/v1/sensors/{sensorId}/readings");
 
         response.put("resources", resources);
 

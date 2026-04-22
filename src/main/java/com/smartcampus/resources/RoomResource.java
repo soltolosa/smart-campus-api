@@ -1,9 +1,7 @@
 package com.smartcampus.resources;
 //importing packages
-import com.smartcampus.exception.RoomNotEmptyException;
-import com.smartcampus.model.Room;
-import com.smartcampus.repository.SmartCampusDataStore;
-//imports for jax rs annotations + response handling
+import java.util.Collection;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -13,13 +11,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
+
+import com.smartcampus.exception.RoomNotEmptyException;
+import com.smartcampus.model.Room;
+import com.smartcampus.repository.SmartCampusDataStore;
 
 
 @Path("/rooms")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class SensorRoomResource {
+public class RoomResource {
 
     @GET
     public Collection<Room> getAllRooms() {

@@ -1,12 +1,9 @@
 package com.smartcampus.resources;
 
 // importing packages
-import com.smartcampus.exception.LinkedResourceNotFoundException;
-import com.smartcampus.model.Room;
-import com.smartcampus.model.Sensor;
-import com.smartcampus.repository.SmartCampusDataStore;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
-// imports for jax rs annotations + response handling
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -16,12 +13,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Collection;
-import java.util.stream.Collectors;
+
+import com.smartcampus.exception.LinkedResourceNotFoundException;
+import com.smartcampus.model.Room;
+import com.smartcampus.model.Sensor;
+import com.smartcampus.repository.SmartCampusDataStore;
 
 @Path("/sensors")
 @Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 public class SensorResource {
 
     // GET sensors endpoint
@@ -43,6 +42,7 @@ public class SensorResource {
     // POST sensors endpoint
     // creates a new sensor if the linked room exists
     @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     public Response createSensor(Sensor sensor) {
         Room room = SmartCampusDataStore.rooms.get(sensor.getRoomId());
 

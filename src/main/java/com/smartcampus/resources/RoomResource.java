@@ -49,7 +49,20 @@ public class RoomResource {
                     .build();
         }
 
-        return Response.ok(room).build();
+        //adding HATEOAS links to the response
+        java.util.Map<String, Object> response = new java.util.HashMap<>();
+        response.put("room", room);
+
+        java.util.Map<String, String> links = new java.util.HashMap<>();
+        links.put("self", "/api/v1/rooms/" + roomId);
+        links.put("collection", "/api/v1/rooms");
+        links.put("sensors", "/api/v1/sensors");
+
+        response.put("links", links);
+
+
+        return Response.ok(response).build();
+
     }
 
     

@@ -255,8 +255,6 @@ Why is it advantageous to use JAX‑RS filters for cross‑cutting concerns like
 Using JAX‑RS filters for logging is better because it lets us handle all the logging in one place, instead of repeating Logger.info() in every resource method. This keeps our code much cleaner. Each controller can focus only on the actual business logic, while the filter automatically logs every request and response for the whole API.
 It also makes the project easier to maintain. If we ever want to change how logging works, we only update the filter instead of editing every single class. This gives us consistent logging across the entire API with much less effort.
 
-If you want, I can help you write the explanation for the filter implementation too.
-
 
 
 

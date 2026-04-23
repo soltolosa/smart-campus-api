@@ -19,7 +19,7 @@ public class LinkedResourceNotFoundExceptionMapper implements ExceptionMapper<Li
                 exception.getMessage()
         );
 
-        return Response.status(Response.Status.UNPROCESSABLE_ENTITY)
+        return Response.status(422)//Unprocessable Entity
                 .entity(errorResponse)
                 .type(MediaType.APPLICATION_JSON)
                 .build();

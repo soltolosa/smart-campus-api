@@ -1,8 +1,10 @@
 package com.smartcampus.resources;
 
 // importing packages
+import com.smartcampus.model.Sensor;
 import com.smartcampus.model.SensorReading;
 import com.smartcampus.repository.SmartCampusDataStore;
+import com.smartcampus.exception.SensorUnavailableException;
 
 // imports for jax rs
 import javax.ws.rs.Consumes;
@@ -29,13 +31,29 @@ public class SensorReadingResource {
     // GET /api/v1/sensors/{sensorId}/readings
     @GET
     public List<SensorReading> getAllReadings() {
-        return SmartCampusDataStore.readingsBySensor
-                .getOrDefault(sensorId, new ArrayList<>());
+        return new ArrayList<>(
+                SmartCampusDataStore.readingsBySensor
+                        .getOrDefault(sensorId, new ArrayList<>())
+        );
     }
 
     // POST /api/v1/sensors/{sensorId}/readings
     @POST
     public Response addReading(SensorReading reading) {
+
+        Sensor sensor = SmartCampusDataStore.sensors.get(sensorId);
+
+        if (sensor == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"error\":\"Sensor not found\"}")
+                    .build();
+        }
+
+        if ("MAINTENANCE".equalsIgnoreCase(sensor.getStatus())) {
+            throw new SensorUnavailableException(
+                    "Sensor is currently in maintenance and cannot accept readings."
+            );
+        }
 
         // generate ID if not provided
         if (reading.getId() == null || reading.getId().isEmpty()) {
@@ -49,8 +67,13 @@ public class SensorReadingResource {
 
         // add reading to the correct sensor list
         SmartCampusDataStore.readingsBySensor
-                .computeIfAbsent(sensorId, k -> new ArrayList<>())
+                .computeIfAbsent(sensorId, k -> java.util.Collections.synchronizedList(new ArrayList<>()))
                 .add(reading);
+
+        // update the sensor's current value with the latest reading
+            sensor.setCurrentValue(reading.getValue());
+
+
 
         return Response.status(Response.Status.CREATED)
                 .entity(reading)

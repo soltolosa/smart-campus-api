@@ -1,7 +1,7 @@
 package com.smartcampus.resources;
 //importing packages
 import java.util.Collection;
-
+import java.util.ArrayList;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,7 +24,7 @@ public class RoomResource {
 
     @GET
     public Collection<Room> getAllRooms() {
-        return SmartCampusDataStore.rooms.values();
+        return new ArrayList<>(SmartCampusDataStore.rooms.values());
     }
 
    
@@ -65,7 +65,9 @@ public class RoomResource {
         }
 
         if (room.getSensorIds() != null && !room.getSensorIds().isEmpty()) {
-            throw new RoomNotEmptyException("Room cannot be deleted because it still has sensors assigned.");
+            throw new RoomNotEmptyException(
+                    "Room cannot be deleted because it still has sensors assigned."
+            );
         }
 
         SmartCampusDataStore.rooms.remove(roomId);

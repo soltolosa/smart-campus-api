@@ -15,7 +15,7 @@ public class Main {
 
     public static HttpServer startServer() {
         final ResourceConfig rc = new ResourceConfig()
-                .packages("com.smartcampus.resources");
+                .packages("com.smartcampus");
         //starting the server with a defined base URI
         return GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
     }

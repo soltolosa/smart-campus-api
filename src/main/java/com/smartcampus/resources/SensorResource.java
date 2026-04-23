@@ -29,8 +29,8 @@ public class SensorResource {
     public Collection<Sensor> getAllSensors(@QueryParam("type") String type) {
 
         if (type == null || type.trim().isEmpty()) {
-            return SmartCampusDataStore.sensors.values();
-        }
+        return new java.util.ArrayList<>(SmartCampusDataStore.sensors.values());
+    }
 
         return SmartCampusDataStore.sensors.values()
                 .stream()
@@ -57,14 +57,17 @@ public class SensorResource {
         room.getSensorIds().add(sensor.getId());
 
         // creates an empty list of readings for the new sensor
-        SmartCampusDataStore.readingsBySensor.put(sensor.getId(), new java.util.ArrayList<>());
-
+        SmartCampusDataStore.readingsBySensor.put(
+                sensor.getId(),
+                java.util.Collections.synchronizedList(new java.util.ArrayList<>())
+        );
         return Response.status(Response.Status.CREATED)
                 .entity(sensor)
                 .build();
     }
 
     //sub resource locator for sensor readings
+    //returns an instance of SensorReadingResource class
     @Path("/{sensorId}/readings")
     public SensorReadingResource getSensorReadingResource(@PathParam("sensorId") String sensorId) {
         return new SensorReadingResource(sensorId);

@@ -1,5 +1,6 @@
 package com.smartcampus.model;
 //imports
+import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +10,7 @@ public class Room {
     private String id; // Unique identifier
     private String name; // Human-readable name
     private int capacity; // Maximum occupancy for safety regulations
-    private List<String> sensorIds = new ArrayList<>(); // Collection of sensor IDs deployed in the room
-
+    private List<String> sensorIds = Collections.synchronizedList(new ArrayList<>());
     //default constructor needed for JSON
     public Room() {}
 
@@ -19,7 +19,7 @@ public class Room {
         this.id = id;
         this.name = name;
         this.capacity = capacity;
-        this.sensorIds = new ArrayList<>();
+        this.sensorIds = Collections.synchronizedList(new ArrayList<>());
     }
 
     //getters and setters
@@ -52,6 +52,6 @@ public class Room {
     }
 
     public void setSensorIds(List<String> sensorIds) {
-        this.sensorIds = sensorIds;
+        this.sensorIds = Collections.synchronizedList(new ArrayList<>(sensorIds));
     }
 }

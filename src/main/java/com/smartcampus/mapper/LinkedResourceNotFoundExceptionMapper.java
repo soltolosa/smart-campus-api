@@ -1,23 +1,25 @@
 package com.smartcampus.mapper;
 
-import com.smartcampus.exception.SensorUnavailableException;
+import com.smartcampus.exception.LinkedResourceNotFoundException;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
-// mapper class to handle the SensorUnavailableException
+
+// mapper class to handle the LinkedResourceNotFoundException
 @Provider
-public class SensorUnavailableExceptionMapper implements ExceptionMapper<SensorUnavailableException> {
+public class LinkedResourceNotFoundExceptionMapper implements ExceptionMapper<LinkedResourceNotFoundException> {
 
     @Override
-    public Response toResponse(SensorUnavailableException exception) {
+    public Response toResponse(LinkedResourceNotFoundException exception) {
+
         String errorResponse = String.format(
                 "{\"error\":\"%s\"}",
                 exception.getMessage()
         );
-        // returns HTTP 403 status code
-        return Response.status(Response.Status.FORBIDDEN)
+        // returns HTTP 422 status code
+        return Response.status(422)//Unprocessable Entity
                 .entity(errorResponse)
                 .type(MediaType.APPLICATION_JSON)
                 .build();

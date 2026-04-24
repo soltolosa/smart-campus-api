@@ -8,11 +8,11 @@ import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
 import java.util.Map;
 
-//Resource class to handle the discovery endpoint
+// resource class to handle the discovery endpoint
 @Path("/")
 public class DiscoveryResource {
 
-    //GET method for discovery endpoint
+    // GET /api/v1/ to provide API metadata and HATEOAS links to available resources
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, Object> getDiscovery() {
@@ -20,11 +20,13 @@ public class DiscoveryResource {
         //API information
         response.put("apiName", "Smart Campus API");
         response.put("version", "v1");
-        response.put("contact", "your.email@westminster.ac.uk");
+        response.put("contact", "w2081584@westminster.ac.uk");
+        response.put("description", "A RESTful API for managing smart campus resources.");
         //Resources in the API
         Map<String, String> resources = new HashMap<>();
         resources.put("rooms", "/api/v1/rooms");
         resources.put("sensors", "/api/v1/sensors");
+        resources.put("sensorReadings", "/api/v1/sensors/{sensorId}/readings");
 
         response.put("resources", resources);
 

@@ -118,23 +118,37 @@ Used in CMD
 
 curl -s http://localhost:8080/api/v1/
 
+{"apiName":"Smart Campus API","contact":"w2081584@westminster.ac.uk","description":"A RESTful API for managing smart campus resources.","resources":{"rooms":"/api/v1/rooms","sensors":"/api/v1/sensors","sensorReadings":"/api/v1/sensors/{sensorId}/readings"},"version":"v1"}
+
+
 *List all rooms
 
 curl -s http://localhost:8080/api/v1/rooms
+
+[{"id":"ROOM-01","name":"Main Room","capacity":50,"sensorIds":["S-001"]}]
+
 
 *Create a room
 
 curl -X POST http://localhost:8080/api/v1/rooms ^
  -H "Content-Type: application/json" ^
- -d "{\"id\":\"ROOM-01\",\"name\":\"Main Room\",\"capacity\":50}"
+ -d "{\"id\":\"ROOM-02\",\"name\":\"Main Room\",\"capacity\":150}"
+
+{"id":"ROOM-02","name":"Main Room","capacity":150,"sensorIds":[]}
+
 
 *Register a Sensor
 
-curl -X POST "http://localhost:8080/api/v1/sensors" -H "Content-Type: application/json" -d "{\"id\":\"S-001\",\"type\":\"CO2\",\"status\":\"ACTIVE\",\"roomId\":\"ROOM-01\",\"currentValue\":0}"
+curl -X POST "http://localhost:8080/api/v1/sensors" -H "Content-Type: application/json" -d "{\"id\":\"S-002\",\"type\":\"CO2\",\"status\":\"ACTIVE\",\"roomId\":\"ROOM-01\",\"currentValue\":0}"
+
+{"id":"S-002","type":"CO2","status":"ACTIVE","currentValue":0.0,"roomId":"ROOM-01"}
+
 
 *Delete a Room
 
 curl -X DELETE "http://localhost:8080/api/v1/rooms/ROOM-01"
+
+{"error":"Room cannot be deleted because it still has sensors assigned."}
 
 
 ## Answers to CW questions:

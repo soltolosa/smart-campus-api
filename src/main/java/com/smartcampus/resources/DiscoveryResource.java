@@ -8,11 +8,11 @@ import javax.ws.rs.core.MediaType;
 import java.util.HashMap;
 import java.util.Map;
 
-//Resource class to handle the discovery endpoint
+// resource class to handle the discovery endpoint
 @Path("/")
 public class DiscoveryResource {
 
-    //GET method for discovery endpoint
+    // GET /api/v1/ to provide API metadata and HATEOAS links to available resources
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, Object> getDiscovery() {

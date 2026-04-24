@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
-
+// mapper class to handle the LinkedResourceNotFoundException
 @Provider
 public class LinkedResourceNotFoundExceptionMapper implements ExceptionMapper<LinkedResourceNotFoundException> {
 
@@ -18,7 +18,7 @@ public class LinkedResourceNotFoundExceptionMapper implements ExceptionMapper<Li
                 "{\"error\":\"%s\"}",
                 exception.getMessage()
         );
-
+        // returns HTTP 422 status code
         return Response.status(422)//Unprocessable Entity
                 .entity(errorResponse)
                 .type(MediaType.APPLICATION_JSON)

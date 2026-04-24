@@ -55,26 +55,26 @@ public class SensorReadingResource {
             );
         }
 
-        // generate ID if not provided
+        // generates ID if null in the request body
         if (reading.getId() == null || reading.getId().isEmpty()) {
             reading.setId(UUID.randomUUID().toString());
         }
 
-        // set timestamp if not provided
+        // sets a timestamp if empty in the request body
         if (reading.getTimestamp() == 0) {
             reading.setTimestamp(System.currentTimeMillis());
         }
 
-        // add reading to the correct sensor list
+        // adds reading to the correct sensor list
         SmartCampusDataStore.readingsBySensor
                 .computeIfAbsent(sensorId, k -> java.util.Collections.synchronizedList(new ArrayList<>()))
                 .add(reading);
 
-        // update the sensor's current value with the latest reading
+        // updates the sensor's current value with the latest reading
             sensor.setCurrentValue(reading.getValue());
 
 
-
+        //returns created reading
         return Response.status(Response.Status.CREATED)
                 .entity(reading)
                 .build();

@@ -3,7 +3,7 @@ package com.smartcampus.resources;
 // importing packages
 import java.util.Collection;
 import java.util.stream.Collectors;
-
+//imports for jax-rs
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -23,15 +23,15 @@ import com.smartcampus.repository.SmartCampusDataStore;
 @Produces(MediaType.APPLICATION_JSON)
 public class SensorResource {
 
-    // GET sensors endpoint
-    // Returns all sensors and allows filtering through the query parameter
+    // GET /api/v1/sensors to retrieve all the sensors
+    // returns all sensors and allows filtering using query parameter
     @GET
     public Collection<Sensor> getAllSensors(@QueryParam("type") String type) {
 
         if (type == null || type.trim().isEmpty()) {
         return new java.util.ArrayList<>(SmartCampusDataStore.sensors.values());
     }
-
+       // allows filering by type using query params
         return SmartCampusDataStore.sensors.values()
                 .stream()
                 .filter(sensor -> sensor.getType() != null
@@ -39,7 +39,7 @@ public class SensorResource {
                 .collect(Collectors.toList());
     }
 
-    // POST sensors endpoint
+    // POST /api/v1/sensors tocreate a new sensor
     // creates a new sensor if the linked room exists
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

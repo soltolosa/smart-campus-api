@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Collections;
 
-// Storing data in memory instead of a database as required by the brief
+// storing data in memory instead of a database as required by the brief
 public class SmartCampusDataStore {
-
+    // uses synchronized maps and lists to avoid race conditions and data loss(thread-safe)
     public static final Map<String, Room> rooms =
             Collections.synchronizedMap(new HashMap<>());
 

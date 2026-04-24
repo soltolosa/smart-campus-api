@@ -8,7 +8,7 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-
+// filter class to log requests and responses in the terminal
 @Provider
 public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
 

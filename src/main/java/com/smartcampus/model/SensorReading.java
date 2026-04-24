@@ -1,6 +1,6 @@
 package com.smartcampus.model;
 
-// Model representing a sensor reading
+// model representing asensor reading
 public class SensorReading {
 
     private String id; // Unique reading event ID

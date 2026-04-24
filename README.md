@@ -101,7 +101,7 @@ RawContent        : HTTP/1.1 200 OK
                     Content-Length: 272
                     Content-Type: application/json
 
-                    {"apiName":"Smart Campus API","contact":"w2081584@westminster.ac.uk","description":"A RESTful API for
+{"apiName":"Smart Campus API","contact":"w2081584@westminster.ac.uk","description":"A RESTful API for
                     managing smart campus reso...
 Forms             : {}
 Headers           : {[Content-Length, 272], [Content-Type, application/json]}
@@ -115,16 +115,25 @@ RawContentLength  : 272
 ## Five sample curl commands
 Used in CMD
 *Discovery:
+
 curl -s http://localhost:8080/api/v1/
+
 *List all rooms
+
 curl -s http://localhost:8080/api/v1/rooms
+
 *Create a room
+
 curl -X POST http://localhost:8080/api/v1/rooms ^
  -H "Content-Type: application/json" ^
  -d "{\"id\":\"ROOM-01\",\"name\":\"Main Room\",\"capacity\":50}"
+
 *Register a Sensor
+
 curl -X POST "http://localhost:8080/api/v1/sensors" -H "Content-Type: application/json" -d "{\"id\":\"S-001\",\"type\":\"CO2\",\"status\":\"ACTIVE\",\"roomId\":\"ROOM-01\",\"currentValue\":0}"
+
 *Delete a Room
+
 curl -X DELETE "http://localhost:8080/api/v1/rooms/ROOM-01"
 
 
